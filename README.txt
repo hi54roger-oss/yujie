@@ -1,18 +1,14 @@
-# Superdesign → GitHub Pages
+# 莊喻傑 ZHUANG YU-JIE｜個人網站
 
-目前整理好的頁面：
+GitHub Pages 八頁完整版本
 
-- index.html：首頁
-- growth.html：成長故事
-- programming.html：程式學習心得
-- dcbot.html：DCbot C++/DPP 專案
+1. index.html — 首頁
+2. growth.html — 我的成長故事
+3. programming.html — 程式學習心得
+4. python.html — Python 遊戲開發初體驗
+5. dcbot.html — DCbot｜C++ / DPP 專案
+6. ncku-ai.html — 成大 AI 人才研修班
+7. goals.html — 我的學習目標
+8. aiot.html — 高師大 AIoT 線上課程體驗
 
-注意：
-首頁還引用兩個尚未提供完整 HTML 的 Superdesign draft：
-- python.html：Python 遊戲開發初體驗
-- ncku-ai.html：成大 AI 人才研修班
-
-因此如果直接上傳目前版本，這兩個連結會找不到頁面。
-把這兩個 draft 的完整 JSON/HTML 也提供後，就可以補齊。
-
-圖片與字型目前仍使用 Superdesign 產生的外部 CDN/URL；GitHub Pages 可以載入，但之後建議把圖片下載到 repository，避免未來外部連結失效。
+所有已知 Superdesign 頁面導覽連結均已改為本網站的本地 HTML 連結。
