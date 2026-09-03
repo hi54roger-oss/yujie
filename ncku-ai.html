@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成大 AI 人才研修班 | 莊喻傑 Zhuang Yu-Jie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f1419;
+            color: #ffffff;
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .text-accent { color: #06d6a0; }
+        .bg-accent { background-color: #06d6a0; }
+        .border-accent { border-color: #06d6a0; }
+        .nav-blur {
+            background-color: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f1419;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06d6a0;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(6, 214, 160, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <!-- Navigation Bar -->
+        <header class="fixed top-0 left-0 right-0 z-50 nav-blur border-b border-gray-800">
+            <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <div class="text-2xl font-bold tracking-tighter">
+                    <a href="index.html" id="nav-logo-link">
+                        <span class="text-accent">Z</span>HUANG.
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-10 text-sm font-medium tracking-wide">
+                    <a href="index.html" id="nav-home-link" class="hover:text-accent transition-colors">回首頁</a>
+                    <a href="growth.html" id="nav-growth-link" class="hover:text-accent transition-colors">成長故事</a>
+                    <a href="index.html#contact" id="nav-contact-link" class="px-5 py-2 border border-accent text-accent rounded-full hover:bg-accent hover:text-[#0f1419] transition-all font-bold">聯絡我</a>
+                </div>
+                <button class="md:hidden text-2xl" id="mobile-menu-btn">
+                    <iconify-icon icon="lucide:menu"></iconify-icon>
+                </button>
+            </nav>
+        </header>
+
+        <main class="flex-grow">
+            <!-- Hero Section -->
+            <section class="pt-48 pb-20 px-6 max-w-7xl mx-auto text-center">
+                <div class="reveal active">
+                    <h2 class="text-accent font-mono mb-4 text-lg tracking-[0.3em] uppercase">AI Academic Program</h2>
+                    <h1 class="text-6xl md:text-8xl font-bold mb-8 tracking-tighter">成大 AI <span class="text-accent">人才研修班</span></h1>
+                    <p class="text-xl md:text-2xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                        國中三年級的 AI 啟蒙之旅，在成功大學遇見數據科學的無限可能。
+                    </p>
+                </div>
+            </section>
+
+            <!-- Content Section -->
+            <section class="py-24 px-6 max-w-7xl mx-auto border-t border-gray-800/50">
+                <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 reveal active">
+                    <!-- Certificate Image Container -->
+                    <div class="lg:w-5/12 w-full">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-accent to-emerald-600 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                            <img src="https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/uploads/33d80c52-23a4-4227-a6c1-c303479c7329/1738263721345-03734e56/image.png" alt="成大 AI 人才研修班證書" class="relative rounded-2xl shadow-2xl w-full border border-gray-800 glow-hover transition-all duration-500 block">
+                        </div>
+                        <div class="mt-10 grid grid-cols-2 gap-4">
+                            <div class="bg-gray-800/40 p-4 rounded-xl border border-gray-700/50">
+                                <p class="text-gray-500 text-xs font-mono mb-1">研修期數</p>
+                                <p class="text-white font-bold">第 14 期</p>
+                            </div>
+                            <div class="bg-gray-800/40 p-4 rounded-xl border border-gray-700/50">
+                                <p class="text-gray-500 text-xs font-mono mb-1">學習時數</p>
+                                <p class="text-white font-bold">16 小時精進課程</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article Text Container -->
+                    <div class="lg:w-7/12 w-full space-y-8">
+                        <div class="inline-block px-4 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent font-mono text-sm tracking-wider">Junior High School • NCKU</div>
+                        <h2 class="text-4xl md:text-5xl font-bold tracking-tighter leading-tight">
+                            AI 的第一堂課<br>
+                            <span class="text-gray-500 text-3xl md:text-4xl">成大研修班</span>
+                        </h2>
+                        <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
+                            <p>
+                                國中三年級的時候，我參加了<span class="text-white font-medium">國立成功大學舉辦的 AI 人才研修班</span>（第 14 期）。老實說，當時的我對 AI 還很陌生，只是抱著好奇心想去看看什麼是人工智慧。
+                            </p>
+                            <p>
+                                在這個 16 小時的課程裡，我第一次系統性地學習了 AI 的基礎概念——從<span class="text-accent">機器學習的原理</span>、神經網路的架構，到數據預處理的重要性。不過最重要的不是這些知識本身，而是那種「哇，原來 AI 可以這樣用！」的驚喜感。
+                            </p>
+                            <p>
+                                課程中印象最深刻的是，我們嘗試使用真實數據集進行建模，做了簡單的機器學習專案。雖然模型很基礎，但當它能夠預測一些東西時，那種成就感真的無法形容。那時候我才意識到，<span class="text-white">AI 不是什麼遙不可及的科幻電影情節</span>，而是一種可以學、可以用的實踐工具。
+                            </p>
+                            <p>
+                                這次經歷點燃了我對 AI 和數據科學的興趣。雖然當時還只是入門級別，但它為我之後在高中選擇深入研究<span class="text-accent font-medium">程式開發與 AI 結合</span>的方向埋下了種子。到現在，AI 依舊是我最想深入探索的領域，它不僅是一張證書，更是我程式之旅的重要轉折點。
+                            </p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center flex-shrink-0 text-accent">
+                                    <iconify-icon icon="lucide:brain-circuit" class="text-xl"></iconify-icon>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">啟蒙契機</h4>
+                                    <p class="text-sm text-gray-500">從零開始探索機器學習的奧秘，建立核心認知。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center flex-shrink-0 text-accent">
+                                    <iconify-icon icon="lucide:database" class="text-xl"></iconify-icon>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">實作體驗</h4>
+                                    <p class="text-sm text-gray-500">運用真實數據預測規律，感受 AI 的工具價值。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tech Grid -->
+            <section class="py-24 px-6 bg-[#0c1015]">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-16 text-center">
+                        <h2 class="text-3xl font-bold mb-4">技術棧與學習領域</h2>
+                        <p class="text-gray-500">研修期間涵蓋的核心技術範疇</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="p-8 rounded-2xl bg-gray-800/30 border border-gray-700/30 hover:border-accent/50 transition-all group">
+                            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                                <iconify-icon icon="lucide:cog" class="text-2xl"></iconify-icon>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Machine Learning</h3>
+                            <p class="text-gray-500 text-sm">理解線性回歸與分類演算法的基礎。</p>
+                        </div>
+                        <div class="p-8 rounded-2xl bg-gray-800/30 border border-gray-700/30 hover:border-accent/50 transition-all group">
+                            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                                <iconify-icon icon="lucide:layers" class="text-2xl"></iconify-icon>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Neural Networks</h3>
+                            <p class="text-gray-500 text-sm">學習感知器與多層網路的基本結構。</p>
+                        </div>
+                        <div class="p-8 rounded-2xl bg-gray-800/30 border border-gray-700/30 hover:border-accent/50 transition-all group">
+                            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                                <iconify-icon icon="lucide:bar-chart-3" class="text-2xl"></iconify-icon>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Data Processing</h3>
+                            <p class="text-gray-500 text-sm">理解數據清洗對於模型準確度的關鍵作用。</p>
+                        </div>
+                        <div class="p-8 rounded-2xl bg-gray-800/30 border border-gray-700/30 hover:border-accent/50 transition-all group">
+                            <div class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                                <iconify-icon icon="lucide:code-2" class="text-2xl"></iconify-icon>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Logic Implementation</h3>
+                            <p class="text-gray-500 text-sm">透過程式邏輯將抽象 AI 理論轉化為應用。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Standardized Footer CTA Section -->
+            <section id="footer-cta" class="py-32 px-6 max-w-7xl mx-auto text-center">
+                <div class="reveal active">
+                    <h2 class="text-4xl font-bold mb-10 tracking-tight">有任何想法或合作機會？歡迎聯繫我</h2>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <a href="index.html#contact" id="footer-contact-me-btn" class="group flex items-center gap-3 bg-accent text-[#0f1419] px-12 py-5 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-lg shadow-accent/20">
+                            <iconify-icon icon="lucide:message-circle"></iconify-icon> 聯絡我
+                        </a>
+                        <a href="index.html" id="footer-back-home-btn" class="flex items-center gap-3 border border-gray-700 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-800 transition-colors">
+                            <iconify-icon icon="lucide:home"></iconify-icon> 返回首頁
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="py-12 px-6 border-t border-gray-800 text-center">
+            <p class="text-gray-500 text-xs tracking-widest uppercase">&copy; 2024-2026 ZHUANG YU-JIE. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            reveals.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const isVisible = (rect.top <= window.innerHeight * 0.85);
+                if (isVisible) el.classList.add('active');
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        mobileBtn.addEventListener('click', () => {
+            // Logic for a mobile overlay would go here
+        });
+    </script>
+</body>
+</html>
