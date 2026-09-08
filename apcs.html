@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCS 學習歷程 | 莊喻傑</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0f1419;
+            color: #ffffff;
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            margin: 0;
+        }
+
+        .text-accent { color: #06d6a0; }
+        .bg-accent { background-color: #06d6a0; }
+        .border-accent { border-color: #06d6a0; }
+
+        .nav-blur {
+            background-color: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .card-bg { background-color: #1a2027; }
+
+        .contact-btn {
+            color: #06d6a0 !important;
+            border: 1px solid #06d6a0 !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            background: transparent !important;
+            text-decoration: none !important;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .contact-btn:hover,
+        .contact-btn:focus,
+        .contact-btn:focus-visible {
+            color: transparent !important;
+            border-color: #06d6a0 !important;
+            background: transparent !important;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .score-ring {
+            border: 1px solid rgba(6, 214, 160, 0.35);
+            background: rgba(6, 214, 160, 0.05);
+        }
+
+        .timeline-line {
+            background: #263039;
+        }
+
+        .timeline-dot {
+            background: #06d6a0;
+            box-shadow: 0 0 0 6px rgba(6, 214, 160, 0.12);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f1419; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #06d6a0; }
+    </style>
+</head>
+
+<body>
+    <div class="min-h-screen flex flex-col">
+
+        <header class="fixed top-0 left-0 right-0 z-50 nav-blur border-b border-gray-800">
+            <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <div class="text-2xl font-bold tracking-tighter">
+                    <a href="index.html">
+                        <span class="text-accent">Z</span>HUANG.
+                    </a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-10 text-sm font-medium tracking-wide">
+                    <a href="index.html" class="hover:text-accent transition-colors">回首頁</a>
+                    <a href="#story" class="hover:text-accent transition-colors">APCS故事</a>
+                    <a href="#scores" class="hover:text-accent transition-colors">成績</a>
+                    <a href="#progress" class="hover:text-accent transition-colors">進步歷程</a>
+                    <a href="index.html#contact" class="contact-btn">聯絡我</a>
+                </div>
+
+                <button class="md:hidden text-2xl">
+                    <iconify-icon icon="lucide:menu"></iconify-icon>
+                </button>
+            </nav>
+        </header>
+
+        <main class="flex-grow">
+
+            <section class="pt-48 pb-24 px-6 max-w-7xl mx-auto text-center">
+                <div class="reveal active">
+                    <span class="text-accent font-mono tracking-[0.3em] uppercase">
+                        APCS Journey
+                    </span>
+
+                    <h1 class="text-6xl md:text-8xl font-bold mb-8 tracking-tighter">
+                        APCS
+                        <span class="text-accent">學習歷程</span>
+                    </h1>
+
+                    <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                        從一次次嘗試與失敗，到逐漸掌握程式解題的方法，
+                        APCS 成為我檢驗自己程式能力、持續進步的重要過程。
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-24 px-6 max-w-5xl mx-auto">
+                <div class="text-center mb-16">
+                    <span id="story" class="text-accent font-mono tracking-widest">MY APCS STORY</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-4 tracking-tighter">
+                        從初出茅廬，到 4/3
+                    </h2>
+                    <div class="h-1 w-20 bg-accent mx-auto mt-6"></div>
+                </div>
+
+                <div class="card-bg rounded-3xl p-10 md:p-14 border border-gray-800 reveal">
+                    <div class="space-y-8 text-gray-300 text-lg leading-relaxed">
+
+                        <div>
+                            <span class="text-accent font-mono text-sm">01 / 初出茅廬</span>
+                            <h3 class="text-2xl font-bold text-white mt-2 mb-3">以為會寫程式，就代表自己很強</h3>
+                            <p>
+                                一開始接觸 APCS 時，我其實對自己的程式能力有不少信心。
+                                平常有寫過程式，也接觸過 C++，所以第一次真正面對 APCS 時，
+                                我帶著一種「應該沒有那麼難」的心情踏進考場。
+                                但真正開始面對題目後，我才發現，會寫程式和能夠解決問題，是兩件不同的事情。
+                            </p>
+                        </div>
+
+                        <div>
+                            <span class="text-accent font-mono text-sm">02 / 2025.11</span>
+                            <h3 class="text-2xl font-bold text-white mt-2 mb-3">第一次改版，第一次認清自己</h3>
+                            <p>
+                                APCS 第一次改版時，我選擇挑戰中高級實作題本。
+                                結果實作只有 0 分，這次經驗對我的打擊其實很直接。
+                                我開始明白，自己並沒有想像中那麼厲害。
+                                問題不只是題目變難，而是我過去累積的解題經驗還不夠，
+                                面對陌生題型時，也還沒有建立起完整的思考方法。
+                                這一次失敗，反而讓我第一次真正知道自己需要補強什麼。
+                            </p>
+                        </div>
+
+                        <div>
+                            <span class="text-accent font-mono text-sm">03 / 從中級重新開始</span>
+                            <h3 class="text-2xl font-bold text-white mt-2 mb-3">不再急著證明自己，而是一步一步變強</h3>
+                            <p>
+                                後來我開始調整自己的方式，不再只是追求更難的題目，
+                                而是先把基礎打穩。從中級題本開始，一題一題練習，
+                                慢慢熟悉資料結構、演算法與不同類型的解題思路。
+                                有些題目一開始完全沒有想法，也常常花很久才找到答案，
+                                但我開始學會把每一次卡關都當成下一次進步的機會。
+                            </p>
+                        </div>
+
+                        <div>
+                            <span class="text-accent font-mono text-sm">04 / 2026.07</span>
+                            <h3 class="text-2xl font-bold text-white mt-2 mb-3">從中級一路打到 4/3</h3>
+                            <p>
+                                一路練習到現在，我終於在 2026 年 7 月取得識讀第四級、
+                                實作第三級，也就是大家常說的 4/3。
+                                這個結果對我而言，不只是成績上的提升，
+                                更代表我真的走過了一段從不懂、卡關、失敗，再到逐漸掌握方法的過程。
+                                回頭看，我最珍惜的不是最後的 4/3，而是自己沒有停在第一次失敗的地方。
+                            </p>
+                        </div>
+
+                        <div class="pt-6 border-t border-gray-800">
+                            <p class="text-white text-xl md:text-2xl font-bold leading-relaxed">
+                                APCS 讓我學到的，不只是如何寫出一段程式，
+                                而是知道自己的不足之後，願意從頭開始，把不會的東西一點一點變成會。
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="scores" class="py-24 px-6 max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <div class="card-bg rounded-3xl p-10 border border-gray-800 reveal">
+                        <span class="text-accent font-mono tracking-widest">PROGRAMMING CONCEPTS</span>
+
+                        <div class="flex items-end gap-4 mt-6 mb-4">
+                            <span class="text-7xl font-bold">76</span>
+                            <span class="text-gray-500 text-xl pb-3">/ 100</span>
+                        </div>
+
+                        <h2 class="text-2xl font-bold mb-3">程式識讀・第四級</h2>
+                        <p class="text-gray-400 leading-relaxed">
+                            2025 年 6 月 15 日檢測，程式識讀原始總分 76 分，取得第四級。
+                        </p>
+                    </div>
+
+                    <div class="card-bg rounded-3xl p-10 border border-gray-800 reveal">
+                        <span class="text-accent font-mono tracking-widest">PROGRAMMING IMPLEMENTATION</span>
+
+                        <div class="flex items-end gap-4 mt-6 mb-4">
+                            <span class="text-7xl font-bold text-accent">220</span>
+                            <span class="text-gray-500 text-xl pb-3">/ 300</span>
+                        </div>
+
+                        <h2 class="text-2xl font-bold mb-3">程式實作・第三級</h2>
+                        <p class="text-gray-400 leading-relaxed">
+                            2026 年 7 月 5 日檢測，程式實作原始總分 220 分，取得第三級。
+                        </p>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="py-24 px-6 max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-accent font-mono tracking-widest">LATEST RESULT</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-4 tracking-tighter">
+                        這次成績，對我而言代表什麼？
+                    </h2>
+                    <div class="h-1 w-20 bg-accent mx-auto mt-6"></div>
+                </div>
+
+                <div class="max-w-4xl mx-auto card-bg rounded-3xl p-10 md:p-14 border border-gray-800 reveal">
+                    <p class="text-gray-300 text-lg md:text-xl leading-relaxed mb-6">
+                        APCS 對我來說不只是一次考試，而是一個檢視自己程式能力的機會。
+                        從最初接觸 C++，到開始練習資料結構、演算法與各種題型，
+                        我逐漸發現，真正重要的不只是把程式寫出來，而是找到有效率的解題方法。
+                    </p>
+
+                    <p class="text-gray-300 text-lg md:text-xl leading-relaxed">
+                        這次取得<span class="text-accent font-bold">識讀第四級、實作第三級</span>，
+                        也讓我更確定自己想往資訊領域繼續發展。
+                        成績不是終點，而是讓我知道下一步還能往哪裡進步。
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-24 px-6 max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <span id="progress" class="text-accent font-mono tracking-widest">MY PROGRESS</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-4 tracking-tighter">
+                        一路走來的進步
+                    </h2>
+                    <div class="h-1 w-20 bg-accent mx-auto mt-6"></div>
+                </div>
+
+                <div class="relative max-w-4xl mx-auto">
+                    <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px timeline-line md:-translate-x-1/2"></div>
+
+                    <div class="space-y-12">
+
+                        <div class="relative pl-12 md:pl-0 md:flex md:justify-start reveal">
+                            <div class="absolute left-2 top-2 w-5 h-5 rounded-full timeline-dot md:left-1/2 md:-translate-x-1/2"></div>
+                            <div class="md:w-5/12 card-bg rounded-2xl p-7 border border-gray-800">
+                                <span class="text-accent font-mono text-sm">2025.01</span>
+                                <h3 class="text-xl font-bold mt-2 mb-2">第一次嘗試</h3>
+                                <p class="text-gray-400">
+                                    識讀 64 分、第三級；實作 0 分、第一級。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-12 md:pl-0 md:flex md:justify-end reveal">
+                            <div class="absolute left-2 top-2 w-5 h-5 rounded-full timeline-dot md:left-1/2 md:-translate-x-1/2"></div>
+                            <div class="md:w-5/12 card-bg rounded-2xl p-7 border border-gray-800">
+                                <span class="text-accent font-mono text-sm">2025.06</span>
+                                <h3 class="text-xl font-bold mt-2 mb-2">開始突破</h3>
+                                <p class="text-gray-400">
+                                    識讀提升到 76 分、第四級；實作 100 分、第二級。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-12 md:pl-0 md:flex md:justify-start reveal">
+                            <div class="absolute left-2 top-2 w-5 h-5 rounded-full timeline-dot md:left-1/2 md:-translate-x-1/2"></div>
+                            <div class="md:w-5/12 card-bg rounded-2xl p-7 border border-gray-800">
+                                <span class="text-accent font-mono text-sm">2025.11</span>
+                                <h3 class="text-xl font-bold mt-2 mb-2">第一次改版</h3>
+                                <p class="text-accent text-sm font-mono mb-2">識讀題本：C｜實作題本：中高級</p>
+                                <p class="text-gray-400">
+                                    識讀 52 分、第三級；實作 0 分、第一級。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-12 md:pl-0 md:flex md:justify-end reveal">
+                            <div class="absolute left-2 top-2 w-5 h-5 rounded-full timeline-dot md:left-1/2 md:-translate-x-1/2"></div>
+                            <div class="md:w-5/12 card-bg rounded-2xl p-7 border border-gray-800">
+                                <span class="text-accent font-mono text-sm">2026.01</span>
+                                <h3 class="text-xl font-bold mt-2 mb-2">實作能力提升</h3>
+                                <p class="text-accent text-sm font-mono mb-2">實作題本：中級</p>
+                                <p class="text-gray-400">
+                                    實作取得 135 分、第二級，持續累積解題經驗。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="relative pl-12 md:pl-0 md:flex md:justify-start reveal">
+                            <div class="absolute left-2 top-2 w-5 h-5 rounded-full timeline-dot md:left-1/2 md:-translate-x-1/2"></div>
+                            <div class="md:w-5/12 card-bg rounded-2xl p-7 border border-accent/40">
+                                <span class="text-accent font-mono text-sm">2026.07</span>
+                                <h3 class="text-xl font-bold mt-2 mb-2">目前成果・4/3</h3>
+                                <p class="text-accent text-sm font-mono mb-2">識讀題本：C｜實作題本：中級</p>
+                                <p class="text-gray-400">
+                                    識讀 72 分、第四級；實作 220 分、第三級。
+                                    三題實作分別取得 20、100、100 分。
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-24 px-6 max-w-7xl mx-auto">
+                <div class="card-bg rounded-3xl p-10 md:p-14 border border-gray-800 reveal">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+
+                        <div>
+                            <div class="text-5xl font-bold text-accent mb-3">4</div>
+                            <p class="text-gray-400">程式識讀級別</p>
+                        </div>
+
+                        <div>
+                            <div class="text-5xl font-bold text-accent mb-3">3</div>
+                            <p class="text-gray-400">程式實作級別</p>
+                        </div>
+
+                        <div>
+                            <div class="text-5xl font-bold text-accent mb-3">220</div>
+                            <p class="text-gray-400">最新實作總分</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+
+
+        </main>
+
+        <footer class="py-20 border-t border-gray-800 px-6">
+            <div class="max-w-7xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-8">
+                    持續寫程式，持續進步
+                </h2>
+
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                    APCS 讓我看見自己的能力，也讓我更確定未來想在資訊領域持續學習。
+                </p>
+
+                <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-5">
+                    <a href="index.html#contact"
+                       class="inline-flex items-center gap-2 bg-accent text-[#0f1419] px-10 py-4 rounded-full font-bold hover:scale-105 transition-transform">
+                        <iconify-icon icon="lucide:mail"></iconify-icon>
+                        聯絡我
+                    </a>
+
+                    <a href="index.html"
+                       class="inline-flex items-center gap-2 border border-gray-700 text-white px-10 py-4 rounded-full font-bold hover:bg-gray-800 transition-colors">
+                        <iconify-icon icon="lucide:home"></iconify-icon>
+                        返回首頁
+                    </a>
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-gray-800">
+                    <p class="text-gray-600 text-sm">
+                        © 2026 莊喻傑 Zhuang Yu-Jie. All Rights Reserved.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
