@@ -37,19 +37,30 @@
             color: #06d6a0 !important;
         }
 
-        .top-nav .contact-btn {
+        .contact-btn {
             color: #06d6a0 !important;
-            border: 1px solid #06d6a0;
+            border: 1px solid #06d6a0 !important;
             padding: 0.5rem 1.25rem;
             border-radius: 9999px;
+            background: transparent !important;
+            text-decoration: none !important;
             font-weight: 700;
-            transition: all 0.3s ease;
+            display: inline-block;
         }
 
-        .top-nav .contact-btn:hover,
-        .top-nav .contact-btn:focus-visible {
-            background-color: #06d6a0;
-            color: #0f1419 !important;
+        .top-nav a.contact-btn,
+        .top-nav a.contact-btn:visited {
+            color: #06d6a0 !important;
+            border-color: #06d6a0 !important;
+            background: transparent !important;
+        }
+
+        .top-nav a.contact-btn:hover,
+        .top-nav a.contact-btn:focus,
+        .top-nav a.contact-btn:focus-visible {
+            color: transparent !important;
+            border-color: #06d6a0 !important;
+            background: transparent !important;
         }
 
         .divider {
@@ -84,18 +95,6 @@
         }
     </style>
 
-<style id="contact-button-template-fix">
-  .top-nav a.contact-btn {
-    color: #06d6a0 !important;
-    border: 1px solid #06d6a0 !important;
-    background: transparent !important;
-  }
-  .top-nav a.contact-btn:hover {
-    color: #0f1419 !important;
-    background: #06d6a0 !important;
-  }
-</style>
-
 </head>
 
 <body>
@@ -115,7 +114,7 @@
             <a href="#security" class="hover-accent transition-colors">資訊安全</a>
             <a href="#linux" class="hover-accent transition-colors">Linux</a>
             <a href="#certificate" class="hover-accent transition-colors">清大證書</a>
-            <a href="#contact" class="px-5 py-2 border border-[#06d6a0] text-[#06d6a0] rounded-full hover:bg-[#06d6a0] hover:text-[#0f1419] transition-all font-bold">聯絡我</a>
+            <a href="#contact" class="contact-btn">聯絡我</a>
         </div>
 
         <button class="md:hidden text-2xl" aria-label="開啟選單">
