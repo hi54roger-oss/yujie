@@ -1,406 +1,554 @@
 <!DOCTYPE html>
 <html lang="zh-Hant" class="scroll-smooth">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>阿喵醬｜Discord Bot with C++ / DPP | 莊喻傑</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+TC:wght@300;400;500;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-        <style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阿喵醬｜Nyachan C++ Discord Bot | 莊喻傑</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
         :root {
-            --bg: #0f1419;
-            --card: #1a2027;
-            --accent: #06d6a0;
-            --text: #ffffff;
-            --text-secondary: #999999;
-            --border: #333333;
+            --bg:#0f1419; --card:#1a2027; --accent:#06d6a0;
+            --text:#fff; --muted:#999; --border:#333;
         }
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+        body { background:var(--bg); color:var(--text); font-family:'Inter','Noto Sans TC',sans-serif; }
+        .mono { font-family:'JetBrains Mono',monospace; }
+        .text-accent { color:var(--accent); }
+        .bg-accent { background:var(--accent); }
+        .nav-blur { background:rgba(15,20,25,.90); backdrop-filter:blur(14px); }
+        .card { background:var(--card); border:1px solid #333; transition:.3s ease; }
+        .card:hover { transform:translateY(-5px); border-color:var(--accent); background:#1e2630; }
+        .timeline-line { width:2px; background:linear-gradient(180deg,var(--accent),#333); }
+        .grid-bg {
+            background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+                              linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+            background-size:40px 40px;
         }
-        .text-accent { color: var(--accent); }
-        .bg-accent { background-color: var(--accent); }
-        .border-accent { border-color: var(--accent); }
-        .nav-blur {
-            background-color: rgba(15, 20, 25, 0.9);
-            backdrop-filter: blur(12px);
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            background-color: #1e2630;
-        }
-        .mono { font-family: 'JetBrains Mono', monospace; }
-        .timeline-line {
-            width: 2px;
-            background: linear-gradient(180deg, var(--accent) 0%, #333 100%);
-        }
+        .glow { box-shadow:0 0 80px rgba(6,214,160,.08); }
+        .reveal { opacity:0; transform:translateY(25px); transition:opacity .7s ease,transform .7s ease; }
+        .reveal.active { opacity:1; transform:none; }
+        ::selection { background:var(--accent); color:#0f1419; }
     </style>
-    </head>
-    <body>
-        <div class="min-h-screen flex flex-col" data-sd-id="1">
-            <!-- Header -->
-            <header class="fixed top-0 left-0 right-0 z-50 nav-blur border-b border-gray-800" data-sd-id="2">
-                <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between" data-sd-id="3">
-                    <div class="text-2xl font-bold tracking-tighter" data-sd-id="4">
-                        <a href="index.html" id="nav-logo-link" data-sd-id="5">
-                            <span class="text-accent" data-sd-id="6">Z</span>HUANG.
-                        </a>
-                    </div>
-                    <div class="hidden md:flex items-center space-x-10 text-sm font-medium tracking-wide" data-sd-id="7">
-                        <a href="index.html" id="nav-home-link" class="hover-accent transition-colors" data-sd-id="8">回首頁</a>
-                        <a href="#tech-stack" id="nav-tech-link" class="hover-accent transition-colors" data-sd-id="9">技術架構</a>
-                        <a href="#process" id="nav-process-link" class="hover-accent transition-colors" data-sd-id="10">開發歷程</a>
-                        <a href="#features" id="nav-features-link" class="hover-accent transition-colors" data-sd-id="11">核心功能</a>
-                        <a href="#code" id="nav-code-link" class="hover-accent transition-colors" data-sd-id="12">代碼亮點</a>
-                    </div>
-                    <a href="https://discord.com/oauth2/authorize?client_id=1535720878476628148" id="nav-cta-btn" class="px-5 py-2 border border-accent text-accent rounded-full hover:bg-accent hover:text-[#0f1419] transition-all text-sm font-bold" data-sd-id="13">
-                        邀請 Bot
-                    </a>
-                </nav>
-            </header>
-            <!-- Main Content -->
-            <main class="flex-grow" data-sd-id="14">
-                <!-- Hero Section -->
-                <section class="pt-48 pb-32 px-6 max-w-7xl mx-auto" data-sd-id="15">
-                    <div class="max-w-4xl animate-in fade-in slide-in-from-bottom-8 duration-1000" data-sd-id="16">
-                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono mb-6 uppercase tracking-widest" data-sd-id="17">
-                            <span class="relative flex h-2 w-2" data-sd-id="18">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" data-sd-id="19">
-                                </span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-accent" data-sd-id="20">
-                                </span>
-                            </span>
-                            <span data-sd-id="21">Project Active</span>
-                        </div>
-                        <h1 class="text-6xl md:text-8xl font-bold mb-8 tracking-tighter" data-sd-id="22">
-                            阿喵醬<br>
-                            <span class="text-accent" data-sd-id="23">C++ / DPP</span>
-                        </h1>
-                        <p class="text-xl md:text-2xl text-gray-400 leading-relaxed mb-10" data-sd-id="24">
-                            使用 C++ 與 DPP (Discord++) 函式庫打造的高效能 Discord 自動化工具，整合 AI 功能與網路爬蟲，實現智慧化的社群管理與互動體驗。
-                        </p>
-                        <div class="mb-10">
-                            <a href="https://discord.com/oauth2/authorize?client_id=1535720878476628148" class="inline-flex items-center gap-2 bg-accent text-[#0f1419] px-10 py-5 rounded-xl font-bold text-lg hover:scale-105 transition-transform shadow-xl shadow-accent/20 hover:shadow-accent/40" id="hero-invite-btn">
-                                邀請 Bot 到伺服器 <iconify-icon icon="lucide:external-link">
-                            </iconify-icon>
-                        </a>
-                    </div>
-                    <div class="flex items-center gap-6" data-sd-id="25">
-                        <div class="flex -space-x-3" data-sd-id="26">
-                            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center border-2 border-[#0f1419]" data-sd-id="27">
-                                <iconify-icon icon="logos:c-plusplus" class="text-xl">
-                                </iconify-icon>
-                            </div>
-                            <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center border-2 border-[#0f1419]" data-sd-id="28">
-                                <iconify-icon icon="simple-icons:discord" class="text-xl text-white">
-                                </iconify-icon>
-                            </div>
-                            <div class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center border-2 border-[#0f1419]" data-sd-id="29">
-                                <iconify-icon icon="mdi:robot-outline" class="text-xl text-white">
-                                </iconify-icon>
-                            </div>
-                        </div>
-                        <span class="text-sm text-gray-400 font-mono" data-sd-id="30">開發核心：DPP v10.0+</span>
-                    </div>
-                </div>
-            </section>
-            <!-- Tech Stack Section -->
-            <section id="tech-stack" class="py-24 bg-[#0c1015]" data-sd-id="31">
-                <div class="max-w-7xl mx-auto px-6" data-sd-id="32">
-                    <div class="mb-16" data-sd-id="33">
-                        <h2 class="text-4xl font-bold mb-4" data-sd-id="34">技術棧架構</h2>
-                        <p class="text-gray-400" data-sd-id="35">以 C++ 與 DPP 為核心，從 Discord API、事件處理到互動式遊戲，逐步建立完整的 Discord Bot。</p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-sd-id="36">
-                        <div class="p-8 rounded-2xl bg-[#1a2027] border border-gray-800" data-sd-id="37">
-                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6" data-sd-id="38">
-                                <iconify-icon icon="logos:c-plusplus" class="text-3xl">
-                                </iconify-icon>
-                            </div>
-                            <h3 class="text-xl font-bold mb-4" data-sd-id="39">C++</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-sd-id="40">使用 C++ 建立指令處理、遊戲邏輯、資料結構與伺服器功能。</p>
-                        </div>
-                        <div class="p-8 rounded-2xl bg-[#1a2027] border border-gray-800" data-sd-id="41">
-                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center mb-6" data-sd-id="42">
-                                <iconify-icon icon="simple-icons:discord" class="text-3xl text-indigo-400">
-                                </iconify-icon>
-                            </div>
-                            <h3 class="text-xl font-bold mb-4" data-sd-id="43">DPP Library</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-sd-id="44">使用 DPP 串接 Discord API，實作 Slash Command、Button、Embed 與事件處理。</p>
-                        </div>
-                        <div class="p-8 rounded-2xl bg-[#1a2027] border border-gray-800" data-sd-id="45">
-                            <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-6" data-sd-id="46">
-                                <iconify-icon icon="mdi:web-sync" class="text-3xl text-green-400">
-                                </iconify-icon>
-                            </div>
-                            <h3 class="text-xl font-bold mb-4" data-sd-id="47">Discord API &amp; Event System</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-sd-id="48">透過事件驅動架構處理使用者指令、訊息、按鈕互動與遊戲狀態，讓 Bot 能即時回應。</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Process Timeline -->
-            <section id="process" class="py-32 px-6 max-w-7xl mx-auto" data-sd-id="49">
-                <div class="flex flex-col md:flex-row gap-20" data-sd-id="50">
-                    <div class="w-full md:w-1/3" data-sd-id="51">
-                        <h2 class="text-4xl font-bold mb-6" data-sd-id="52">開發歷程</h2>
-                        <p class="text-gray-400 leading-relaxed mb-8" data-sd-id="53">
-                            這是一個從好奇心出發，逐漸演變成整合多項技術的系統專案。在追隨哥哥腳步的同時，我也找到了自己的技術熱點。
-                        </p>
-                        <div class="p-6 rounded-xl bg-accent/5 border border-accent/20" data-sd-id="54">
-                            <h4 class="text-accent font-bold mb-2" data-sd-id="55">核心挑戰</h4>
-                            <p class="text-sm text-gray-400" data-sd-id="56">從最基本的指令回覆開始，逐步加入 Discord 資訊、網路延遲測試、互動遊戲、AutoMod 與經濟系統。</p>
-                        </div>
-                    </div>
-                    <div class="w-full md:w-2/3" data-sd-id="57">
-                        <div class="relative" data-sd-id="58">
-                            <div class="absolute left-4 md:left-8 top-0 bottom-0 timeline-line opacity-20" data-sd-id="59">
-                            </div>
-                            <!-- Stage 1 -->
-                            <div class="relative pl-12 md:pl-20 mb-16" data-sd-id="60">
-                                <div class="absolute left-2.5 md:left-6.5 top-0 w-3 h-3 md:w-4 md:h-4 rounded-full bg-accent ring-8 ring-accent/10" data-sd-id="61">
-                                </div>
-                                <span class="text-xs font-mono text-accent mb-2 block tracking-widest uppercase" data-sd-id="62">Phase 01</span>
-                                <h3 class="text-2xl font-bold mb-4" data-sd-id="63">初始規劃與環境搭建</h3>
-                                <p class="text-gray-400 mb-4" data-sd-id="64">以 C++ 建立專案，研究 Discord Bot 的開發方式，最後使用 DPP 串接 Discord API，完成第一版阿喵醬。</p>
-                                <div class="flex flex-wrap gap-2" data-sd-id="65">
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-xs text-gray-300" data-sd-id="66">CMake</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-xs text-gray-300" data-sd-id="67">VS Code</span>
-                                </div>
-                            </div>
-                            <!-- Stage 2 -->
-                            <div class="relative pl-12 md:pl-20 mb-16" data-sd-id="68">
-                                <div class="absolute left-2.5 md:left-6.5 top-0 w-3 h-3 md:w-4 md:h-4 rounded-full bg-accent ring-8 ring-accent/10" data-sd-id="69">
-                                </div>
-                                <span class="text-xs font-mono text-accent mb-2 block tracking-widest uppercase" data-sd-id="70">Phase 02</span>
-                                <h3 class="text-2xl font-bold mb-4" data-sd-id="71">核心開發與指令系統</h3>
-                                <p class="text-gray-400 mb-4" data-sd-id="72">將功能拆分成多個 Slash Command，包含 /hello、/about、/help、/ping、/server、/userinfo、/myinfo 等，並逐步擴充互動功能。</p>
-                                <div class="flex flex-wrap gap-2" data-sd-id="73">
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-xs text-gray-300" data-sd-id="74">Multi-threading</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-xs text-gray-300" data-sd-id="75">Event Loop</span>
-                                </div>
-                            </div>
-                            <!-- Stage 3 -->
-                            <div class="relative pl-12 md:pl-20" data-sd-id="76">
-                                <div class="absolute left-2.5 md:left-6.5 top-0 w-3 h-3 md:w-4 md:h-4 rounded-full bg-accent ring-8 ring-accent/10" data-sd-id="77">
-                                </div>
-                                <span class="text-xs font-mono text-accent mb-2 block tracking-widest uppercase" data-sd-id="78">Phase 03</span>
-                                <h3 class="text-2xl font-bold mb-4" data-sd-id="79">功能持續擴充與重構</h3>
-                                <p class="text-gray-400 mb-4" data-sd-id="80">後續加入多款可互動的小遊戲，以及 AutoMod、使用者資料、每日獎勵與點數系統，讓阿喵醬從單純指令 Bot 逐漸變成完整的 Discord 小型平台。</p>
-                                <div class="flex flex-wrap gap-2" data-sd-id="81">
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-xs text-gray-300" data-sd-id="82">Web Scraping</span>
-                                    <span class="px-3 py-1 bg-gray-800 rounded text-xs text-gray-300" data-sd-id="83">REST Client</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Features Grid -->
-            <section id="features" class="py-32 bg-[#0c1015] px-6" data-sd-id="84">
-                <div class="max-w-7xl mx-auto" data-sd-id="85">
-                    <div class="text-center mb-20" data-sd-id="86">
-                        <h2 class="text-4xl font-bold mb-4" data-sd-id="87">核心功能集</h2>
-                        <div class="h-1 w-20 bg-accent mx-auto" data-sd-id="88">
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-sd-id="89">
-                        <div class="p-8 rounded-3xl bg-[#1a2027] border border-gray-800 card-hover" data-sd-id="90">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6 text-accent text-2xl" data-sd-id="91">
-                                <iconify-icon icon="lucide:brain-circuit">
-                                </iconify-icon>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3" data-sd-id="92">🤖 阿喵醬互動</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-sd-id="93">支援 @阿喵醬 的訊息互動，並保留阿喵醬「喵～你好！」的角色設定。</p>
-                        </div>
-                        <div class="p-8 rounded-3xl bg-[#1a2027] border border-gray-800 card-hover" data-sd-id="94">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6 text-accent text-2xl" data-sd-id="95">
-                                <iconify-icon icon="lucide:search">
-                                </iconify-icon>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3" data-sd-id="96">🌐 網路延遲測試</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-sd-id="97">/ping 可測試台北、香港、東京、首爾等節點的網路延遲。</p>
-                        </div>
-                        <div class="p-8 rounded-3xl bg-[#1a2027] border border-gray-800 card-hover" data-sd-id="98">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6 text-accent text-2xl" data-sd-id="99">
-                                <iconify-icon icon="lucide:zap">
-                                </iconify-icon>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3" data-sd-id="100">⚡ Slash Commands</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-sd-id="101">目前已註冊多項 Slash Command，集中處理基本功能、Discord 資訊、遊戲與管理功能。</p>
-                        </div>
-                        <div class="p-8 rounded-3xl bg-[#1a2027] border border-gray-800 card-hover" data-sd-id="102">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6 text-accent text-2xl" data-sd-id="103">
-                                <iconify-icon icon="lucide:database">
-                                </iconify-icon>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3" data-sd-id="104">💰 點數與每日獎勵</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-sd-id="105">提供 /balance 與 /daily，讓伺服器可以加入簡單的點數與每日獎勵機制。</p>
-                        </div>
-                        <div class="p-8 rounded-3xl bg-[#1a2027] border border-gray-800 card-hover" data-sd-id="106">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6 text-accent text-2xl" data-sd-id="107">
-                                <iconify-icon icon="lucide:shield-check">
-                                </iconify-icon>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3" data-sd-id="108">🛡️ AutoMod</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-sd-id="109">提供防刷頻、防髒話等功能，可由伺服器管理者開關對應的防護功能。</p>
-                        </div>
-                        <div class="p-8 rounded-3xl bg-[#1a2027] border border-gray-800 card-hover" data-sd-id="110">
-                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6 text-accent text-2xl" data-sd-id="111">
-                                <iconify-icon icon="lucide:line-chart">
-                                </iconify-icon>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3" data-sd-id="112">🎮 多款互動遊戲</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-sd-id="113">目前包含猜數字、剪刀石頭布、21 點、踩地雷、2048、四子棋、五子棋與計時挑戰等遊戲。</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- Code Section -->
-            <section id="code" class="py-32 px-6 max-w-7xl mx-auto" data-sd-id="114">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center" data-sd-id="115">
-                    <div data-sd-id="116">
-                        <h2 class="text-4xl font-bold mb-6" data-sd-id="117">代碼架構亮點</h2>
-                        <p class="text-gray-400 mb-8" data-sd-id="118">
-                            在 C++ 中處理 Discord 機器人需要極高的細緻度。我採用了模組化設計，將核心邏輯與指令實作分離，並利用 DPP 的 Lambda 表達式簡化事件註冊。
-                        </p>
-                        <ul class="space-y-4" data-sd-id="119">
-                            <li class="flex items-center gap-3" data-sd-id="120">
-                                <iconify-icon icon="lucide:check-circle" class="text-accent">
-                                </iconify-icon>
-                                <span data-sd-id="121">高效的 Lambda 事件回調處理</span>
-                            </li>
-                            <li class="flex items-center gap-3" data-sd-id="122">
-                                <iconify-icon icon="lucide:check-circle" class="text-accent">
-                                </iconify-icon>
-                                <span data-sd-id="123">自定義的指令路由選擇器</span>
-                            </li>
-                            <li class="flex items-center gap-3" data-sd-id="124">
-                                <iconify-icon icon="lucide:check-circle" class="text-accent">
-                                </iconify-icon>
-                                <span data-sd-id="125">異步 HTTP 請求與 JSON 解析</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="p-8 rounded-3xl bg-[#1a2027] border border-gray-800 shadow-2xl relative overflow-hidden" data-sd-id="126">
-                        <div class="absolute -top-20 -right-20 w-48 h-48 bg-accent/10 rounded-full blur-3xl"></div>
-                        <div class="relative">
-                            <div class="flex items-center gap-3 mb-8">
-                                <div class="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent text-2xl">
-                                    <iconify-icon icon="lucide:brain-circuit"></iconify-icon>
-                                </div>
-                                <div>
-                                    <div class="text-xs text-accent font-bold uppercase tracking-widest">AI Core</div>
-                                    <h3 class="text-2xl font-bold text-white">阿喵醬的主要功能</h3>
-                                </div>
-                            </div>
+</head>
 
-                            <p class="text-gray-400 leading-relaxed mb-8">
-                                以 AI 互動為核心，讓阿喵醬不只是執行指令的 Discord Bot，也能透過自然語言與使用者交流。
-                            </p>
+<body>
+<div class="min-h-screen flex flex-col">
 
-                            <div class="space-y-4">
-                                <div class="p-4 rounded-2xl bg-[#0f1419] border border-gray-800">
-                                    <div class="flex items-center gap-3 mb-2">
-                                        <iconify-icon icon="lucide:message-circle" class="text-accent text-xl"></iconify-icon>
-                                        <span class="font-bold text-white">AI 對話</span>
-                                    </div>
-                                    <p class="text-sm text-gray-500">@阿喵醬即可進行自然語言互動。</p>
-                                </div>
-
-                                <div class="p-4 rounded-2xl bg-[#0f1419] border border-gray-800">
-                                    <div class="flex items-center gap-3 mb-2">
-                                        <iconify-icon icon="lucide:gamepad-2" class="text-accent text-xl"></iconify-icon>
-                                        <span class="font-bold text-white">互動娛樂</span>
-                                    </div>
-                                    <p class="text-sm text-gray-500">結合多款小遊戲，增加 Discord 社群互動性。</p>
-                                </div>
-
-                                <div class="p-4 rounded-2xl bg-[#0f1419] border border-gray-800">
-                                    <div class="flex items-center gap-3 mb-2">
-                                        <iconify-icon icon="lucide:shield-check" class="text-accent text-xl"></iconify-icon>
-                                        <span class="font-bold text-white">智慧管理</span>
-                                    </div>
-                                    <p class="text-sm text-gray-500">提供 AutoMod、防刷頻與防髒話等伺服器管理功能。</p>
-                                </div>
-                            </div>
-
-                            <div class="mt-8 flex items-center gap-3 text-xs text-gray-500 mono">
-                                <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-                                AI INTERACTION / DISCORD / C++
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </section>
-                <!-- Performance Section -->
-                <section class="py-24 bg-accent text-[#0f1419]" data-sd-id="146">
-                    <div class="max-w-7xl mx-auto px-6" data-sd-id="147">
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center" data-sd-id="148">
-                            <div data-sd-id="149">
-                                <div class="text-5xl font-bold mb-2 tracking-tighter" data-sd-id="150">12ms</div>
-                                <div class="text-sm font-bold uppercase opacity-60 tracking-widest" data-sd-id="151">平均回應延遲</div>
-                            </div>
-                            <div data-sd-id="152">
-                                <div class="text-5xl font-bold mb-2 tracking-tighter" data-sd-id="153">99.9%</div>
-                                <div class="text-sm font-bold uppercase opacity-60 tracking-widest" data-sd-id="154">系統運行穩定率</div>
-                            </div>
-                            <div data-sd-id="155">
-                                <div class="text-5xl font-bold mb-2 tracking-tighter" data-sd-id="156">0.5%</div>
-                                <div class="text-sm font-bold uppercase opacity-60 tracking-widest" data-sd-id="157">CPU 負載佔用</div>
-                            </div>
-                            <div data-sd-id="158">
-                                <div class="text-5xl font-bold mb-2 tracking-tighter" data-sd-id="159">64MB</div>
-                                <div class="text-sm font-bold uppercase opacity-60 tracking-widest" data-sd-id="160">最小記憶體消耗</div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            <!-- Footer -->
-            <footer class="py-24 px-6 border-t border-gray-800 text-center">
-                <div class="max-w-7xl mx-auto flex flex-col items-center gap-12">
-                    <div class="flex flex-col items-center gap-8">
-                        <div class="flex flex-col md:flex-row items-center gap-6">
-                            <a href="index.html#contact" id="footer-contact-me-btn" class="bg-accent text-[#0f1419] px-12 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-lg shadow-accent/20 flex items-center gap-3">
-                                <iconify-icon icon="lucide:mail">
-                                </iconify-icon> 聯絡我
-                            </a>
-                            <a href="index.html" id="footer-back-home-btn" class="border border-accent text-accent px-12 py-4 rounded-full font-bold text-lg hover:bg-accent hover:text-[#0f1419] transition-all flex items-center gap-3">
-                                <iconify-icon icon="lucide:home">
-                                </iconify-icon> 返回首頁
-                            </a>
-                        </div>
-                        <a href="mailto:hi54roger@gmail.com" class="text-gray-400 hover:text-accent transition-colors font-medium">hi54roger@gmail.com</a>
-                    </div>
-                    <div class="text-gray-500 text-sm tracking-widest uppercase">
-                        © 2026 莊喻傑 Zhuang Yu-Jie. <span class="hidden md:inline">以 C++ 驅動數位夢想。</span>
-                    </div>
-                </div>
-            </footer>
+<header class="fixed top-0 left-0 right-0 z-50 nav-blur border-b border-gray-800">
+    <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="index.html" class="text-2xl font-bold tracking-tighter">
+            <span class="text-accent">Z</span>HUANG.
+        </a>
+        <div class="hidden lg:flex items-center gap-7 text-sm font-medium">
+            <a href="index.html" class="hover:text-accent transition">回首頁</a>
+            <a href="#overview" class="hover:text-accent transition">專案</a>
+            <a href="#tech-stack" class="hover:text-accent transition">技術</a>
+            <a href="#process" class="hover:text-accent transition">歷程</a>
+            <a href="#features" class="hover:text-accent transition">功能</a>
+            <a href="#knowledge" class="hover:text-accent transition">知識點</a>
+            <a href="#future" class="hover:text-accent transition">未來</a>
         </div>
-        <script>
-        // Intersection Observer for reveal animation
-        const observerOptions = {
-            threshold: 0.1
-        };
+        <a href="https://discord.com/oauth2/authorize?client_id=1535720878476628148"
+           class="px-5 py-2 border border-[#06d6a0] text-accent rounded-full hover:bg-accent hover:text-[#0f1419] transition-all text-sm font-bold">
+            邀請 Bot
+        </a>
+    </nav>
+</header>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
+<main class="flex-grow">
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    </script>
-    </body>
+<!-- HERO -->
+<section id="overview" class="pt-48 pb-28 px-6 max-w-7xl mx-auto grid-bg">
+    <div class="max-w-5xl reveal active">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-mono mb-7 tracking-widest">
+            <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+            PROJECT ACTIVE · 2026
+        </div>
+
+        <div class="flex flex-col lg:flex-row lg:items-end gap-10">
+            <div class="flex-1">
+                <p class="mono text-accent text-sm mb-4">DISCORD BOT / C++ PROJECT</p>
+                <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-none mb-8">
+                    阿喵醬<br><span class="text-accent">Nyachan.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 leading-relaxed max-w-4xl">
+                    從一個「想做 Discord 機器人」的念頭開始，
+                    逐步使用 C++、DPP、Discord API、Windows API 與網路技術，
+                    把阿喵醬從簡單的指令回覆，發展成具有互動、遊戲、管理與點數系統的 Discord 小型平台。
+                </p>
+            </div>
+            <div class="card glow rounded-3xl p-7 w-full lg:w-72">
+                <div class="text-5xl mb-4">ฅ^•ﻌ•^ฅ</div>
+                <div class="mono text-xs text-accent mb-2">NYACHAN STATUS</div>
+                <div class="text-2xl font-bold">C++ / DPP</div>
+                <div class="text-sm text-gray-500 mt-2">Discord Bot Project</div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 mt-10">
+            <span class="px-4 py-2 rounded-full bg-gray-800 text-sm mono">C++</span>
+            <span class="px-4 py-2 rounded-full bg-gray-800 text-sm mono">DPP</span>
+            <span class="px-4 py-2 rounded-full bg-gray-800 text-sm mono">Discord API</span>
+            <span class="px-4 py-2 rounded-full bg-gray-800 text-sm mono">Windows API</span>
+            <span class="px-4 py-2 rounded-full bg-gray-800 text-sm mono">ICMP</span>
+            <span class="px-4 py-2 rounded-full bg-gray-800 text-sm mono">CMake</span>
+            <span class="px-4 py-2 rounded-full bg-gray-800 text-sm mono">AI</span>
+        </div>
+    </div>
+</section>
+
+<!-- PROJECT IDEA -->
+<section class="py-24 bg-[#0c1015] px-6">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 reveal">
+            <p class="mono text-accent text-xs tracking-widest mb-3">01 / WHY</p>
+            <h2 class="text-4xl font-bold mb-7">為什麼開始做阿喵醬？</h2>
+            <p class="text-gray-400 leading-8 text-lg">
+                我一開始只是想知道：「Discord 上的 Bot 到底是怎麼做出來的？」
+                從最基本的訊息回覆開始，我開始研究 Discord Bot 的運作方式，
+                再進一步接觸 C++、DPP 與 Discord API。
+                實作過程中不只是增加功能，也不斷遇到編譯、編碼、API 與邏輯問題，
+                讓我逐漸理解到，真正的程式開發是把一個想法拆成可以實作、測試與修改的系統。
+            </p>
+        </div>
+        <div class="card rounded-3xl p-8 reveal">
+            <p class="mono text-accent text-xs mb-5">PROJECT MINDSET</p>
+            <div class="space-y-5 text-sm text-gray-400">
+                <div><b class="text-white">想法</b><br>我想做一個屬於自己的 Discord Bot。</div>
+                <div><b class="text-white">實作</b><br>研究 C++、DPP、API 與事件處理。</div>
+                <div><b class="text-white">除錯</b><br>從錯誤訊息與實際結果找問題。</div>
+                <div><b class="text-white">擴充</b><br>讓 Bot 從指令工具變成小型平台。</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TECH -->
+<section id="tech-stack" class="py-28 px-6 max-w-7xl mx-auto">
+    <div class="mb-14 reveal">
+        <p class="mono text-accent text-xs tracking-widest mb-3">02 / TECHNOLOGY</p>
+        <h2 class="text-4xl font-bold mb-4">技術架構</h2>
+        <p class="text-gray-400">不是只列出工具，而是把每項技術在專案中的角色拆開。</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card rounded-3xl p-7 reveal">
+            <iconify-icon icon="logos:c-plusplus" class="text-4xl"></iconify-icon>
+            <h3 class="text-xl font-bold mt-5 mb-3">C++</h3>
+            <p class="text-gray-400 text-sm leading-7">負責指令處理、功能邏輯、遊戲邏輯、資料處理與伺服器功能，是阿喵醬的主要開發語言。</p>
+        </div>
+        <div class="card rounded-3xl p-7 reveal">
+            <iconify-icon icon="simple-icons:discord" class="text-4xl text-indigo-400"></iconify-icon>
+            <h3 class="text-xl font-bold mt-5 mb-3">DPP / Discord API</h3>
+            <p class="text-gray-400 text-sm leading-7">利用 DPP（Discord++）串接 Discord API，實作 Slash Command、事件、Button 與 Embed 等互動。</p>
+        </div>
+        <div class="card rounded-3xl p-7 reveal">
+            <iconify-icon icon="lucide:network" class="text-4xl text-accent"></iconify-icon>
+            <h3 class="text-xl font-bold mt-5 mb-3">網路與 ICMP</h3>
+            <p class="text-gray-400 text-sm leading-7">透過 Windows 的 ICMP 相關 API 進行節點延遲測試，讓 /ping 不只是測試 Bot 是否在線。</p>
+        </div>
+        <div class="card rounded-3xl p-7 reveal">
+            <iconify-icon icon="lucide:settings-2" class="text-4xl text-accent"></iconify-icon>
+            <h3 class="text-xl font-bold mt-5 mb-3">CMake</h3>
+            <p class="text-gray-400 text-sm leading-7">使用 CMake 管理 C++ 專案的建置與相依設定，並在開發過程中處理編譯與環境問題。</p>
+        </div>
+        <div class="card rounded-3xl p-7 reveal">
+            <iconify-icon icon="lucide:monitor-cog" class="text-4xl text-accent"></iconify-icon>
+            <h3 class="text-xl font-bold mt-5 mb-3">Windows API</h3>
+            <p class="text-gray-400 text-sm leading-7">使用 Windows 系統提供的網路相關 API，讓 C++ 程式可以進一步與作業系統功能互動。</p>
+        </div>
+        <div class="card rounded-3xl p-7 reveal">
+            <iconify-icon icon="lucide:brain-circuit" class="text-4xl text-accent"></iconify-icon>
+            <h3 class="text-xl font-bold mt-5 mb-3">AI / 自然語言互動</h3>
+            <p class="text-gray-400 text-sm leading-7">將 AI 互動視為阿喵醬的擴充方向，讓 Bot 不只執行固定指令，也能往自然語言互動發展。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="py-28 bg-[#0c1015] px-6">
+    <div class="max-w-7xl mx-auto reveal">
+        <p class="mono text-accent text-xs tracking-widest mb-3">03 / ARCHITECTURE</p>
+        <h2 class="text-4xl font-bold mb-10">從使用者輸入到 Bot 回應</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-9 gap-3 items-center">
+            <div class="card rounded-2xl p-5 text-center">
+                <div class="mono text-accent text-xs">INPUT</div>
+                <div class="font-bold mt-2">Discord 使用者</div>
+            </div>
+            <div class="hidden md:flex justify-center text-accent text-2xl">→</div>
+
+            <div class="card rounded-2xl p-5 text-center">
+                <div class="mono text-accent text-xs">EVENT</div>
+                <div class="font-bold mt-2">Discord Event</div>
+            </div>
+            <div class="hidden md:flex justify-center text-accent text-2xl">→</div>
+
+            <div class="card rounded-2xl p-5 text-center">
+                <div class="mono text-accent text-xs">LOGIC</div>
+                <div class="font-bold mt-2">C++ / DPP</div>
+            </div>
+            <div class="hidden md:flex justify-center text-accent text-2xl">→</div>
+
+            <div class="card rounded-2xl p-5 text-center">
+                <div class="mono text-accent text-xs">API</div>
+                <div class="font-bold mt-2">Windows / Network</div>
+            </div>
+            <div class="hidden md:flex justify-center text-accent text-2xl">→</div>
+
+            <div class="card rounded-2xl p-5 text-center">
+                <div class="mono text-accent text-xs">DATA / OUTPUT</div>
+                <div class="font-bold mt-2">資料處理 → Discord 回應</div>
+            </div>
+        </div>
+
+        <p class="text-gray-500 text-sm text-center mt-6">
+            使用者觸發事件後，由 C++ / DPP 處理主要邏輯，再依需求呼叫 API、處理資料，最後回傳結果。
+        </p>
+    </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="py-32 px-6 max-w-7xl mx-auto">
+    <div class="flex flex-col lg:flex-row gap-20">
+        <div class="lg:w-1/3 reveal">
+            <p class="mono text-accent text-xs tracking-widest mb-3">04 / PROCESS</p>
+            <h2 class="text-4xl font-bold mb-6">開發歷程</h2>
+            <p class="text-gray-400 leading-8">
+                阿喵醬不是一次完成的作品，而是從最基本的功能一路測試、除錯與擴充。
+                每一次增加功能，都讓我接觸到新的技術與問題。
+            </p>
+        </div>
+
+        <div class="lg:w-2/3 relative">
+            <div class="absolute left-4 top-0 bottom-0 timeline-line opacity-30"></div>
+
+            <div class="relative pl-12 mb-16 reveal">
+                <div class="absolute left-2 top-1 w-5 h-5 rounded-full bg-accent ring-8 ring-accent/10"></div>
+                <span class="mono text-xs text-accent">PHASE 01</span>
+                <h3 class="text-2xl font-bold my-3">從零開始：環境與第一版</h3>
+                <p class="text-gray-400 leading-7">建立 C++ 專案，研究 Discord Bot 的開發方式，最後使用 DPP 串接 Discord API，讓第一版阿喵醬真正運作。</p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="px-3 py-1 bg-gray-800 rounded text-xs">C++</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded text-xs">CMake</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded text-xs">DPP</span>
+                </div>
+            </div>
+
+            <div class="relative pl-12 mb-16 reveal">
+                <div class="absolute left-2 top-1 w-5 h-5 rounded-full bg-accent ring-8 ring-accent/10"></div>
+                <span class="mono text-xs text-accent">PHASE 02</span>
+                <h3 class="text-2xl font-bold my-3">核心開發：Slash Command</h3>
+                <p class="text-gray-400 leading-7">把功能拆成多個 Slash Command，包含 /hello、/about、/help、/ping、/server、/myinfo、/userinfo 等，逐步建立 Bot 的基本骨架。</p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="px-3 py-1 bg-gray-800 rounded text-xs">Slash Command</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded text-xs">Event Loop</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded text-xs">Lambda Callback</span>
+                </div>
+            </div>
+
+            <div class="relative pl-12 mb-16 reveal">
+                <div class="absolute left-2 top-1 w-5 h-5 rounded-full bg-accent ring-8 ring-accent/10"></div>
+                <span class="mono text-xs text-accent">PHASE 03</span>
+                <h3 class="text-2xl font-bold my-3">從 Bot 到小型平台</h3>
+                <p class="text-gray-400 leading-7">加入多款互動遊戲、AutoMod、使用者資料、每日獎勵與點數系統，讓阿喵醬開始具有社群平台的雛形。</p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="px-3 py-1 bg-gray-800 rounded text-xs">Game Logic</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded text-xs">AutoMod</span>
+                    <span class="px-3 py-1 bg-gray-800 rounded text-xs">Economy</span>
+                </div>
+            </div>
+
+            <div class="relative pl-12 reveal">
+                <div class="absolute left-2 top-1 w-5 h-5 rounded-full bg-accent ring-8 ring-accent/10"></div>
+                <span class="mono text-xs text-accent">PHASE 04</span>
+                <h3 class="text-2xl font-bold my-3">整合與持續擴充</h3>
+                <p class="text-gray-400 leading-7">持續思考 AI、自然語言互動與其他自動化功能，讓阿喵醬不只是「會執行指令」，而是逐漸朝更智慧的互動系統發展。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="py-32 bg-[#0c1015] px-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-20 reveal">
+            <p class="mono text-accent text-xs tracking-widest mb-3">05 / FEATURES</p>
+            <h2 class="text-4xl font-bold">核心功能</h2>
+            <div class="h-1 w-20 bg-accent mx-auto mt-6"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+            <div class="card rounded-3xl p-8 reveal">
+                <div class="text-3xl mb-5">💬</div>
+                <h3 class="text-xl font-bold mb-3">基本互動</h3>
+                <p class="text-gray-400 text-sm leading-7">透過 @阿喵醬進行互動，保留「喵～你好！」的角色設定，讓工具也具有自己的個性。</p>
+            </div>
+            <div class="card rounded-3xl p-8 reveal">
+                <div class="text-3xl mb-5">⚡</div>
+                <h3 class="text-xl font-bold mb-3">Slash Commands</h3>
+                <p class="text-gray-400 text-sm leading-7">集中處理基本功能、Discord 資訊、遊戲與管理功能，讓使用方式更清楚。</p>
+            </div>
+            <div class="card rounded-3xl p-8 reveal">
+                <div class="text-3xl mb-5">🌐</div>
+                <h3 class="text-xl font-bold mb-3">網路延遲測試</h3>
+                <p class="text-gray-400 text-sm leading-7">/ping 可測試台北、香港、東京、首爾等節點的網路延遲，並學習 ICMP 與 Windows 網路 API。</p>
+            </div>
+            <div class="card rounded-3xl p-8 reveal">
+                <div class="text-3xl mb-5">🛡️</div>
+                <h3 class="text-xl font-bold mb-3">AutoMod</h3>
+                <p class="text-gray-400 text-sm leading-7">提供防刷頻、防髒話等伺服器管理功能，可由管理者控制相關防護設定。</p>
+            </div>
+            <div class="card rounded-3xl p-8 reveal">
+                <div class="text-3xl mb-5">💰</div>
+                <h3 class="text-xl font-bold mb-3">點數與每日獎勵</h3>
+                <p class="text-gray-400 text-sm leading-7">透過 /balance、/daily 等功能加入簡單的點數與每日獎勵機制，也延伸到身分組與 Shop 的設計。</p>
+            </div>
+            <div class="card rounded-3xl p-8 reveal">
+                <div class="text-3xl mb-5">🎮</div>
+                <h3 class="text-xl font-bold mb-3">互動遊戲</h3>
+                <p class="text-gray-400 text-sm leading-7">包含猜數字、剪刀石頭布、21 點、踩地雷、2048、四子棋、五子棋與計時挑戰等。</p>
+            </div>
+            <div class="card rounded-3xl p-8 reveal">
+                <div class="text-3xl mb-5">🏷️</div>
+                <h3 class="text-xl font-bold mb-3">身分組 Shop</h3>
+                <p class="text-gray-400 text-sm leading-7">以青銅阿喵、白銀阿喵、黃金阿喵建立階級式身分組系統，前一階解鎖後才能繼續取得下一階。</p>
+            </div>
+            <div class="card rounded-3xl p-8 reveal">
+                <div class="text-3xl mb-5">🤖</div>
+                <h3 class="text-xl font-bold mb-3">AI 互動方向</h3>
+                <p class="text-gray-400 text-sm leading-7">以自然語言互動為擴充方向，讓使用者可以用文字與阿喵醬交流，而不只依賴固定指令。</p>
+            </div>
+            <div class="card rounded-3xl p-8 reveal">
+                <div class="text-3xl mb-5">🧩</div>
+                <h3 class="text-xl font-bold mb-3">模組化功能</h3>
+                <p class="text-gray-400 text-sm leading-7">將核心邏輯與指令實作分離，讓不同功能可以逐步加入、測試與重構。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CODE -->
+<section id="code" class="py-32 px-6 max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-14 items-center">
+        <div class="reveal">
+            <p class="mono text-accent text-xs tracking-widest mb-3">06 / CODE</p>
+            <h2 class="text-4xl font-bold mb-6">程式碼背後的知識</h2>
+            <p class="text-gray-400 leading-8 mb-8">
+                阿喵醬讓我把原本分散學到的 C++ 知識放進真正的專案。
+                從函式、資料結構，到 Lambda、事件回調、非同步處理與 JSON，
+                我開始理解這些語法與概念為什麼需要存在。
+            </p>
+            <div class="space-y-4">
+                <div class="flex gap-4"><span class="text-accent mono">01</span><span>Lambda 表達式與事件回調</span></div>
+                <div class="flex gap-4"><span class="text-accent mono">02</span><span>事件驅動（Event-driven）程式設計</span></div>
+                <div class="flex gap-4"><span class="text-accent mono">03</span><span>非同步 HTTP 請求與 JSON 解析</span></div>
+                <div class="flex gap-4"><span class="text-accent mono">04</span><span>模組化設計與功能拆分</span></div>
+                <div class="flex gap-4"><span class="text-accent mono">05</span><span>API / Library 的使用與整合</span></div>
+            </div>
+        </div>
+
+        <div class="card rounded-3xl p-7 mono text-sm overflow-hidden reveal">
+            <div class="flex gap-2 mb-7">
+                <span class="w-3 h-3 rounded-full bg-gray-600"></span>
+                <span class="w-3 h-3 rounded-full bg-gray-600"></span>
+                <span class="w-3 h-3 rounded-full bg-gray-600"></span>
+            </div>
+            <div class="text-gray-500">// Conceptual flow</div>
+            <div class="mt-4 text-gray-300">
+                <span class="text-accent">on_slashcommand</span>(event) {<br>
+                &nbsp;&nbsp;<span class="text-accent">parse</span>(event);<br>
+                &nbsp;&nbsp;<span class="text-accent">route</span>(command);<br>
+                &nbsp;&nbsp;<span class="text-accent">execute</span>(logic);<br>
+                &nbsp;&nbsp;<span class="text-accent">reply</span>(result);<br>
+                }<br><br>
+                <span class="text-gray-500">// Network feature</span><br>
+                <span class="text-accent">ping</span>(taipei);<br>
+                <span class="text-accent">ping</span>(hong_kong);<br>
+                <span class="text-accent">ping</span>(tokyo);<br>
+                <span class="text-accent">ping</span>(seoul);
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- KNOWLEDGE MAP -->
+<section id="knowledge" class="py-32 bg-[#0c1015] px-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-14 reveal">
+            <p class="mono text-accent text-xs tracking-widest mb-3">07 / CS KNOWLEDGE</p>
+            <h2 class="text-4xl font-bold mb-4">我在阿喵醬裡實際用到的知識</h2>
+            <p class="text-gray-400">把「學到的東西」與「實際做過的東西」連起來。</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="card rounded-2xl p-6 reveal">
+                <div class="mono text-accent text-xs">PROGRAMMING</div>
+                <h3 class="font-bold text-lg mt-3">C++</h3>
+                <ul class="text-gray-400 text-sm leading-8 mt-3">
+                    <li>• 函式與控制流程</li><li>• STL / 資料處理</li><li>• Lambda</li><li>• Class / Object 概念</li>
+                </ul>
+            </div>
+            <div class="card rounded-2xl p-6 reveal">
+                <div class="mono text-accent text-xs">SOFTWARE</div>
+                <h3 class="font-bold text-lg mt-3">工程與除錯</h3>
+                <ul class="text-gray-400 text-sm leading-8 mt-3">
+                    <li>• CMake</li><li>• Library</li><li>• 編譯錯誤排查</li><li>• 模組化</li>
+                </ul>
+            </div>
+            <div class="card rounded-2xl p-6 reveal">
+                <div class="mono text-accent text-xs">NETWORK</div>
+                <h3 class="font-bold text-lg mt-3">網路</h3>
+                <ul class="text-gray-400 text-sm leading-8 mt-3">
+                    <li>• IP</li><li>• ICMP</li><li>• Ping / Latency</li><li>• Windows Network API</li>
+                </ul>
+            </div>
+            <div class="card rounded-2xl p-6 reveal">
+                <div class="mono text-accent text-xs">SYSTEM</div>
+                <h3 class="font-bold text-lg mt-3">系統與 API</h3>
+                <ul class="text-gray-400 text-sm leading-8 mt-3">
+                    <li>• Discord API</li><li>• Event-driven</li><li>• HTTP / JSON</li><li>• 權限與身分組</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DEBUG -->
+<section class="py-32 px-6 max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-14">
+        <div class="reveal">
+            <p class="mono text-accent text-xs tracking-widest mb-3">08 / DEBUGGING</p>
+            <h2 class="text-4xl font-bold mb-6">阿喵醬不是一開始就會的</h2>
+            <p class="text-gray-400 leading-8">
+                真正讓我學到最多的，往往不是「成功執行」的那一刻，而是程式不能執行的時候。
+                我曾經遇到 CMake、DPP 設定、Bot 啟動、權限與 UTF-8 中文亂碼等問題。
+                透過一次次編譯、觀察錯誤訊息、修改設定與重新測試，我開始建立自己的除錯流程。
+            </p>
+        </div>
+        <div class="space-y-4 reveal">
+            <div class="card rounded-2xl p-5">
+                <span class="mono text-accent text-xs">PROBLEM 01</span>
+                <h3 class="font-bold mt-2">中文變成亂碼</h3>
+                <p class="text-gray-500 text-sm mt-2">從字串編碼與 UTF-8 問題開始理解「程式看到的文字」和「人看到的文字」並不一定相同。</p>
+            </div>
+            <div class="card rounded-2xl p-5">
+                <span class="mono text-accent text-xs">PROBLEM 02</span>
+                <h3 class="font-bold mt-2">CMake / Library 編譯問題</h3>
+                <p class="text-gray-500 text-sm mt-2">學習確認編譯器、函式庫、路徑與專案設定，而不是只看最後一行錯誤。</p>
+            </div>
+            <div class="card rounded-2xl p-5">
+                <span class="mono text-accent text-xs">PROBLEM 03</span>
+                <h3 class="font-bold mt-2">功能增加後變得複雜</h3>
+                <p class="text-gray-500 text-sm mt-2">當功能越來越多，開始需要思考模組化、邏輯拆分與重構。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PERFORMANCE -->
+<section class="py-24 bg-accent text-[#0f1419]">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <p class="mono text-xs tracking-widest opacity-60">09 / PROJECT SNAPSHOT</p>
+            <h2 class="text-3xl font-bold mt-3">專案目前的量化紀錄</h2>
+            <p class="text-sm opacity-70 mt-3">以下數據沿用目前專案頁的紀錄。</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+            <div><div class="text-5xl font-bold">12ms</div><div class="text-sm font-bold opacity-60 mt-2">平均回應延遲</div></div>
+            <div><div class="text-5xl font-bold">99.9%</div><div class="text-sm font-bold opacity-60 mt-2">系統運行穩定率</div></div>
+            <div><div class="text-5xl font-bold">0.5%</div><div class="text-sm font-bold opacity-60 mt-2">CPU 負載佔用</div></div>
+            <div><div class="text-5xl font-bold">64MB</div><div class="text-sm font-bold opacity-60 mt-2">最小記憶體消耗</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- FUTURE -->
+<section id="future" class="py-32 px-6 max-w-7xl mx-auto">
+    <div class="reveal">
+        <p class="mono text-accent text-xs tracking-widest mb-3">10 / NEXT</p>
+        <h2 class="text-4xl font-bold mb-5">阿喵醬 2.0：下一步</h2>
+        <p class="text-gray-400 max-w-3xl leading-8 mb-12">
+            阿喵醬的價值不只在目前完成了多少功能，更在於它讓我有一個可以持續實驗的環境。
+            下一階段希望把 AI、LLM 與更完整的自動化能力加入其中。
+        </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-7">
+        <div class="card rounded-3xl p-8 reveal">
+            <div class="mono text-accent text-xs">01 / AI</div>
+            <h3 class="text-2xl font-bold mt-4 mb-3">AI 對話</h3>
+            <p class="text-gray-400 text-sm leading-7">讓使用者以自然語言和阿喵醬互動，降低固定指令的限制。</p>
+        </div>
+        <div class="card rounded-3xl p-8 reveal">
+            <div class="mono text-accent text-xs">02 / LLM</div>
+            <h3 class="text-2xl font-bold mt-4 mb-3">LLM 整合</h3>
+            <p class="text-gray-400 text-sm leading-7">研究大型語言模型與 Discord Bot 的結合，讓阿喵醬具備更自然的理解與回應能力。</p>
+        </div>
+        <div class="card rounded-3xl p-8 reveal">
+            <div class="mono text-accent text-xs">03 / AGENT</div>
+            <h3 class="text-2xl font-bold mt-4 mb-3">AI Agent</h3>
+            <p class="text-gray-400 text-sm leading-7">進一步探索讓 AI 不只是聊天，而是能根據任務使用工具、處理資訊與完成流程。</p>
+        </div>
+    </div>
+
+    <div class="mt-16 card rounded-3xl p-8 md:p-10 reveal">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-7">
+            <div>
+                <div class="mono text-accent text-xs">PROJECT ROADMAP</div>
+                <h3 class="text-2xl font-bold mt-3">從 Discord Bot → AI 互動平台</h3>
+                <p class="text-gray-500 mt-3">C++ → API → Network → AI → Agent</p>
+            </div>
+            <div class="text-4xl text-accent mono">→</div>
+        </div>
+    </div>
+</section>
+
+<!-- REFLECTION -->
+<section class="py-32 bg-[#0c1015] px-6">
+    <div class="max-w-4xl mx-auto text-center reveal">
+        <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-8">
+            「把想法做出來」<br>比只學會語法更重要。
+        </h2>
+        <p class="text-gray-400 text-lg leading-9">
+            阿喵醬讓我第一次比較完整地經歷一個軟體專案從想法、環境設定、程式撰寫、
+            API 串接、功能擴充，到除錯與重構的過程。
+            我也因此更確定自己想往資訊工程發展，
+            並希望把之後學到的 AI、網路與系統知識繼續放進自己的作品。
+        </p>
+    </div>
+</section>
+
+</main>
+
+<footer class="py-24 px-6 border-t border-gray-800 text-center">
+    <div class="max-w-7xl mx-auto flex flex-col items-center gap-10">
+        <div class="flex flex-col md:flex-row items-center gap-5">
+            <a href="index.html#contact"
+               class="bg-accent text-[#0f1419] px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform flex items-center gap-3">
+                <iconify-icon icon="lucide:mail"></iconify-icon> 聯絡我
+            </a>
+            <a href="index.html"
+               class="border border-accent text-accent px-10 py-4 rounded-full font-bold text-lg hover:bg-accent hover:text-[#0f1419] transition-all flex items-center gap-3">
+                <iconify-icon icon="lucide:home"></iconify-icon> 返回首頁
+            </a>
+        </div>
+        <a href="mailto:hi54roger@gmail.com" class="text-gray-400 hover:text-accent transition-colors">hi54roger@gmail.com</a>
+        <div class="text-gray-500 text-sm tracking-widest uppercase">
+            © 2026 莊喻傑 Zhuang Yu-Jie · 以 C++ 驅動數位夢想。
+        </div>
+    </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
 </html>
