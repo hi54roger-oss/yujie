@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   智慧城市｜臺北交通策略研究 | 莊喻傑
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+TC:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body{margin:0;background:#0f1419;color:#f7fafb;font-family:Inter,"Noto Sans TC",sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}a{color:inherit;text-decoration:none}.accent{color:#06d6a0}.wrap{max-width:1280px;margin:auto;padding:0 24px}header{position:sticky;top:0;z-index:5;background:#0f1419ed;border-bottom:1px solid #303842;backdrop-filter:blur(12px)}nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.brand{font-weight:700;font-size:24px}.navlinks{display:flex;gap:22px;align-items:center;flex-wrap:wrap;font-size:14px}.navlinks a:hover{color:#06d6a0}.contact{border:1px solid #06d6a0;color:#06d6a0;padding:10px 18px;border-radius:40px;font-weight:700}.contact:hover{color:transparent!important;background:transparent!important}.hero{padding:108px 0 78px;border-bottom:1px solid #27323b}.eyebrow{color:#06d6a0;font:600 13px monospace;letter-spacing:3px}.hero h1{font-size:clamp(42px,7vw,76px);letter-spacing:-2px;margin:20px 0}.lead{font-size:19px;line-height:1.9;color:#b5c0c8;max-width:780px}.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}.chip{border:1px solid #365148;color:#06d6a0;padding:8px 12px;border-radius:30px;font-size:12px}.section{padding:82px 0}.section.alt{background:#0c1015}.section h2{font-size:32px;margin:0 0 16px}.intro{color:#9ba9b3;line-height:1.85;margin-bottom:32px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}.card{background:#1a2027;border:1px solid #2a353d;border-radius:20px;padding:28px}.card h3{margin:0 0 14px;font-size:20px}.card p,.card li{color:#b4c0c8;line-height:1.85;font-size:15px}.card ul{padding-left:20px}.number{color:#06d6a0;font:700 13px monospace;display:block;margin-bottom:15px}.timeline{border-left:2px solid #06d6a0;padding-left:28px;display:grid;gap:24px}.timeline .card{position:relative}.timeline .card:before{content:"";position:absolute;left:-36px;top:30px;background:#06d6a0;width:12px;height:12px;border-radius:50%}.muted{color:#b4c0c8;line-height:1.9}.actions{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-top:32px}.button{display:inline-block;border:1px solid #06d6a0;border-radius:12px;padding:13px 22px;color:#06d6a0;font-weight:700}.button:hover{background:#06d6a0;color:#0f1419}.closing-section{text-align:center}.closing-section .actions{justify-content:center}footer{text-align:center;border-top:1px solid #2a353d;color:#85939e;padding:36px 15px;font-size:13px}@media(max-width:650px){nav{padding:14px 0}.navlinks{gap:13px}.hero{padding:72px 0}.section{padding:58px 0}}
+  </style>
+ </head>
+ <body>
+  <header>
+   <nav class="wrap">
+    <a class="brand" href="index.html"><span class="accent">Z</span>HUANG.</a>
+    <div class="navlinks">
+     <a href="index.html">
+      回首頁
+     </a>
+     <a href="#motivation">
+      研究動機
+     </a>
+     <a href="#pipeline">
+      資料流程
+     </a>
+     <a href="#architecture">
+      系統架構
+     </a>
+     <a href="#strategy">
+      策略研究
+     </a>
+     <a href="#progress">
+      開發紀錄
+     </a>
+     <a class="contact" href="index.html#contact">
+      聯絡我
+     </a>
+    </div>
+   </nav>
+  </header>
+  <main>
+   <section class="hero">
+    <div class="wrap">
+     <div class="eyebrow">
+      FEATURED PROJECT / SMART CITY
+     </div>
+     <h1>
+      智慧城市｜臺北交通策略研究
+     </h1>
+     <p class="lead">
+      運用 C++、交通資料與演算法，從路段壅塞分析出發，探索可驗證、能比較利弊的城市交通改善策略。
+     </p>
+     <div class="chips">
+      <span class="chip">
+       C++
+      </span>
+      <span class="chip">
+       Traffic Data
+      </span>
+      <span class="chip">
+       Graph
+      </span>
+      <span class="chip">
+       Robust Minimax
+      </span>
+     </div>
+    </div>
+   </section>
+   <section class="section" id="motivation">
+    <div class="wrap">
+     <h2>
+      01 / 研究動機
+     </h2>
+     <p class="intro">
+      參加清華大學 AI 體驗營後，我接觸了 AI、LLM、AI Agent、Linux 與資訊安全等技術，也開始思考如何將人工智慧真正應用於生活中的問題。受到營隊啟發，我決定挑戰過去未曾嘗試的大型專案，因此開始使用 OpenAI Codex 作為 AI 輔助開發工具，以 C++ 實作「智慧城市&mdash;&mdash;臺北市交通壅塞分析與改善策略系統」。在開發過程中，我不只是讓 AI 產生程式碼，而是親自規劃系統架構、研究交通資料來源、設計演算法，並透過測試與除錯逐步完善功能。這次經驗讓我從單純的演算法解題，跨出到整合真實資料、系統設計與 AI 輔助開發，也讓我理解大型軟體專案需要的不只是程式能力，更包含問題分析、驗證與持續改進。
+     </p>
+     <div class="grid">
+      <article class="card">
+       <span class="number">
+        PROBLEM
+       </span>
+       <h3>
+        臺北尖峰交通
+       </h3>
+       <p>
+        以臺北市下班時段的交通壅塞為研究情境，觀察路段流量、行車延遲與道路網路間的連動。
+       </p>
+      </article>
+      <article class="card">
+       <span class="number">
+        GOAL
+       </span>
+       <h3>
+        不只偵測，更要提出策略
+       </h3>
+       <p>
+        希望透過可計算的模型比較交通改善方案，分析效益、成本及對其他路段可能造成的影響。
+       </p>
+      </article>
+     </div>
+    </div>
+   </section>
+   <section class="section alt" id="pipeline">
+    <div class="wrap">
+     <h2>
+      02 / 資料與處理流程
+     </h2>
+     <p class="intro">
+      以官方交通資料與可追溯的道路識別資訊作為研究方向；資料品質與對應正確性是關鍵。
+     </p>
+     <div class="grid">
+      <article class="card">
+       <span class="number">
+        01
+       </span>
+       <h3>
+        交通 VD 資料
+       </h3>
+       <p>
+        專案曾使用 taipei_vd.xml、taipei_vd_static.xml 等資料，研究 VDID / DeviceID 到 LinkID 的對應。
+       </p>
+      </article>
+      <article class="card">
+       <span class="number">
+        02
+       </span>
+       <h3>
+        路段彙整
+       </h3>
+       <p>
+        研究將偵測器與車道資訊彙整至道路 Link，避免單一偵測點被誤當成整段道路狀態。
+       </p>
+      </article>
+      <article class="card">
+       <span class="number">
+        03
+       </span>
+       <h3>
+        壅塞排序
+       </h3>
+       <p>
+        以 top_links.csv 作為分析與輸出資料之一，持續檢查資料來源、單位與排序合理性。
+       </p>
+      </article>
+     </div>
+    </div>
+   </section>
+   <section class="section" id="architecture">
+    <div class="wrap">
+     <h2>
+      03 / C++ 系統架構
+     </h2>
+     <p class="intro">
+      以資料模型、路網模型與交通模擬拆分功能，讓每一步都能獨立驗證。
+     </p>
+     <div class="grid">
+      <article class="card">
+       <span class="number">
+        C++
+       </span>
+       <h3>
+        Road / Intersection / Graph
+       </h3>
+       <p>
+        以道路、路口與圖結構描述道路網路，作為路段連接關係與後續路徑分析的基礎。
+       </p>
+      </article>
+      <article class="card">
+       <span class="number">
+        MODEL
+       </span>
+       <h3>
+        TrafficState / Scenario
+       </h3>
+       <p>
+        將交通狀態與不同情境分開建模，以利比較尖峰、道路限制等條件。
+       </p>
+      </article>
+      <article class="card">
+       <span class="number">
+        EVAL
+       </span>
+       <h3>
+        評估函數
+       </h3>
+       <p>
+        以旅行時間、排隊長度等指標研究方案優劣；評分必須能解釋，而不是任意給方案 A、B 分數。
+       </p>
+      </article>
+     </div>
+    </div>
+   </section>
+   <section class="section alt" id="strategy">
+    <div class="wrap">
+     <h2>
+      04 / 策略搜尋
+     </h2>
+     <p class="intro">
+      從單一方案的評估延伸到多步決策與不確定情境。
+     </p>
+     <div class="grid">
+      <article class="card">
+       <span class="number">
+        SEARCH
+       </span>
+       <h3>
+        Minimax / Alpha-Beta
+       </h3>
+       <p>
+        研究以多層策略搜尋比較決策，並利用剪枝降低搜尋成本；深度與分支數需要依實測調整。
+       </p>
+      </article>
+      <article class="card">
+       <span class="number">
+        ROBUST
+       </span>
+       <h3>
+        Robust Minimax
+       </h3>
+       <p>
+        把不同交通情境納入比較，避免方案只在單一假設下表現良好。
+       </p>
+      </article>
+      <article class="card">
+       <span class="number">
+        TRADE-OFF
+       </span>
+       <h3>
+        策略利弊
+       </h3>
+       <p>
+        關注局部改善是否將壅塞轉移到鄰近道路，以及對學校、醫院、公車站等重要節點的影響。
+       </p>
+      </article>
+     </div>
+    </div>
+   </section>
+   <section class="section" id="progress">
+    <div class="wrap">
+     <h2>
+      05 / 開發紀錄與驗證
+     </h2>
+     <p class="intro">
+      把有紀錄的測試成果與尚待確認的完整系統能力分開呈現。
+     </p>
+     <div class="timeline">
+      <article class="card">
+       <span class="number">
+        STEP 7-A
+       </span>
+       <h3>
+        TrafficModel 測試
+       </h3>
+       <p>
+        先前開發紀錄顯示測試 108/108 通過；這代表該階段測試通過，不等於整個臺北市交通模型已完成實地驗證。
+       </p>
+      </article>
+      <article class="card">
+       <span class="number">
+        STEP 7-B
+       </span>
+       <h3>
+        Evaluation 測試
+       </h3>
+       <p>
+        先前開發紀錄顯示測試 166/166 通過；評估函數曾採用固定參考值的正規化方式與多指標權重。
+       </p>
+      </article>
+      <article class="card">
+       <span class="number">
+        NEXT
+       </span>
+       <h3>
+        下一階段
+       </h3>
+       <p>
+        進一步驗證實際路網、交通資料時效性、策略可行性與結果的現實解釋力。
+       </p>
+      </article>
+     </div>
+    </div>
+   </section>
+   <section class="section alt closing-section">
+    <div class="wrap">
+     <h2>
+      持續學習，持續改進
+     </h2>
+     <p class="muted">
+      這份紀錄呈現目前已知的學習與開發歷程，後續成果會在驗證後更新。
+     </p>
+     <div class="actions">
+      <a class="button" href="index.html#contact">
+       聯絡我
+      </a>
+      <a class="button" href="index.html">
+       返回首頁
+      </a>
+     </div>
+    </div>
+   </section>
+  </main>
+  <footer>
+   &copy; 2026 莊喻傑 &middot; 個人學習作品集
+  </footer>
+ </body>
+</html>
